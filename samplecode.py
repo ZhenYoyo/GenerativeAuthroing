@@ -1,5 +1,4 @@
 import openai
-import msvcrt
 
 #currently we can apply our own key, but later need to public this to let user to put their own key
 openai.api_key = "sk-f29A4tQuVfHMbdcgqHrNIF3QRVJmbpnrqucE7V7062r4fz8L"
@@ -8,12 +7,12 @@ openai.api_base = "https://api.f2gpt.com/v1"
 narratorsystemprompt= ""
 narratorsystempromptlist = []
 
-narratoruserprompt=""
-narratoruserpromptlist=[]
+narratorsensorprompt=""
+narratorsensorpromptlist=[]
 
+#this is for simulating the real text input from the player(not the user-author of the interactive narrative) . if the player input is empty, then the system will proceed through "a viewing lense"
+playerinput=""
 
-
-# a list?
 
 class Agent():   
     def __init__(self, agent_name, system_msg, assistant_msg, init_user_msg, respond_length):
@@ -58,36 +57,46 @@ narrator = Agent("narrator",
 
 
 while True:
-    # 监听用户输入
+    # listening to user input
     user_input = input("<+ ")
     
-    # 如果用户输入为空，则跳过
+    # skip if no real input
     if not user_input:
         continue
-    
+
+#---FOR USER/AUTHOR. initial set up--define different system prompt and user prompt    
     if user_input.startswith("#systemprompt>"):
      narratorsystempromptlist.append(user_input[14:])
      print(narratorsystempromptlist)
 
 
-    if user_input.startswith("#userprompt>"):
-     narratoruserpromptlist.append(user_input[12:])
-     print(narratoruserpromptlist)
+    if user_input.startswith("#sensorprompt>"):
+     narratorsensorpromptlist.append(user_input[12:])
+     print(narratorsensorpromptlist)
 
+#---FOR PLAYER. for control live play,
+    #here is simulating the function of switching between different system prompt based on the narrative branching 
+    #later should replace the text input method with the real condition
+    if user_input.startswith("#switching"):
+        systempromptindex = user_input[10:]
+        if systempromptindex.isdigit() and int(systempromptindex) < len(narratorsystempromptlist):
+            narratorsystemprompt = narratorsystempromptlist[int(systempromptindex)]
+            print("currentsystemprompt:", narratorsystemprompt, "\n")
 
+    #here is simulating the input from the real player
+    if user_input.startswith("#playertext>"):
+        playerinput = user_input[12:]
+        print("currentplayerinput:", playerinput, "\n")
+
+    #here is the conversation monitor
     if user_input.startswith("#start"):
-     systempromptindex = user_input[6:]
-     #userpromptindex = user_input[7:]
-     if systempromptindex.isdigit() and int(systempromptindex) < len(narratorsystempromptlist):
-     #and userpromptindex() and int(userpromptindex) < len(narratoruserpromptlist):
-    #  if int(systempromptindex) < len(narratorsystempromptlist) and int(userpromptindex) < len(narratoruserpromptlist):
-        narratorsystemprompt = narratorsystempromptlist[int(systempromptindex)]
-        print("systempromptnow:", narratorsystemprompt, "\n")
-        #narratoruserprompt = narratoruserpromptlist[int(userpromptindex)]
+     sensorpromptindex = user_input[6:]
+     if sensorpromptindex.isdigit() and int(sensorpromptindex) < len(narratorsensorpromptlist):
+        narratorsensorprompt = narratorsensorpromptlist[int(sensorpromptindex)]
+        print("currentsensorprompt:", narratorsensorprompt, "\n")
         narrator.debug_mode = False
         narrator.messages.append({"role": "system", "content": narratorsystemprompt})
-        narrator.messages.append({"role": "user", "content": "Hi the creature, tell me your story"})
-        #narrator.messages.append({"role": "user", "content": narratoruserprompt})
+        narrator.messages.append({"role": "user", "content": narratorsensorprompt + playerinput})
         narrator_response = narrator.get_completion()
         print("narrator:", narrator_response, "\n")
      else:
