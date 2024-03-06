@@ -27,6 +27,9 @@ class Agent():
         self.debug_mode = False 
 
     def get_completion(self, model="gpt-3.5-turbo", temperature=0.8):
+        #gpt-4-0125-preview
+        #gpt-3.5-turbo-0125
+        #gpt-3.5-turbo
         #global total_tokens
         messages = self.messages
         response = openai.ChatCompletion.create(
