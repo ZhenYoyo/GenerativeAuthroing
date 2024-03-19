@@ -1,0 +1,47 @@
+⭐<syntax demonstration>
+
+
+
+
+
+
+
+⭐<playable instruction>
+[instruction for defining the world setting & character] 
+
+example:
+
+world> There is a beautiful place, where lots of magic, fruit and flowers. All the residents need to drink kiwi fruit drink to survive
+
+character> Yoyo, a handsome boy who loves drinking Kiwi juice, and listing to rap songs. 
+
+character>KiwiAngel, a girl, who is born from kiwi, who loves playing muisic. She hates Yoyo because of she likes him in her deep.
+
+...>....
+
+
+[narrator]
+narratorbehavior>You are a nice narrator, you tell happy story.
+narratorbehavior>You are a sad narrator, you tell sad story.
+...>....
+
+[input variable]
+inputvariable>{light intensity}, 1-10, higher will make the narrative run well
+inputvariable>{water}, 1-10, higher will lead the narrative towards more to water
+...>....
+
+一共有三个list：
+
+未structured的list
+worldsetting/
+narratorbehavior/
+input variables/
+
+适应page2, branching后的两个list, 有两个
+
+
+⭐<待解决&可能遇到的问题>
+#! 这里有一个问题是现在的1, 2 是写定的, 要想怎么跟按钮联系起来, 按下按钮之后添加一个input stage/ 或者或多个input stage-- 可能是list同时多个item的问题
+
+⭐ <reference log>
+https://python.langchain.com.cn/docs/expression_language/how_to/passthrough

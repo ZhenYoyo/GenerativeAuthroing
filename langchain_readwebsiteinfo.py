@@ -46,7 +46,7 @@ from langchain.chains import create_retrieval_chain
 retriever = vector.as_retriever()
 retrieval_chain = create_retrieval_chain(retriever, document_chain)
 
-response = retrieval_chain.invoke({"input": " what is the first system prompt of Lumina"})
+response = retrieval_chain.invoke({"input": " what is the website about?"})
 print(response["answer"])
 
 
