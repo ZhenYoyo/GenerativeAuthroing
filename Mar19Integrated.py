@@ -29,11 +29,10 @@ model = ChatOpenAI(model="gpt-3.5-turbo", verbose=True)
 
 #---
 #defining world setting, character, narrator behavior, input variables for differenve narrative stages--page1
-narrative_retrieval_list = []
 narrator_behavior_list = []
 input_variables_list = []
 input_variables_demonstration = []
-
+narrative_retrieval_list = []
 
 #---
 # for page 2, template state machine
