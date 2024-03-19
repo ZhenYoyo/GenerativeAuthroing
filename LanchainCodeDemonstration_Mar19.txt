@@ -1,10 +1,17 @@
 ⭐<syntax demonstration>
 
+一共有6个list：
 
+未structured的list
 
+narrative_retrieval_list = []
+narrator_behavior_list = []
+input_variables_list = []
+input_variables_demonstration = []
 
-
-
+> page2, branching后的两个list, 有两个
+prompttemplate_list = []
+formatted_retrieval_list = []
 
 ⭐<playable instruction>
 [instruction for defining the world setting & character] 
@@ -26,22 +33,22 @@ narratorbehavior>You are a sad narrator, you tell sad story.
 ...>....
 
 [input variable]
-inputvariable>{light intensity}, 1-10, higher will make the narrative run well
-inputvariable>{water}, 1-10, higher will lead the narrative towards more to water
+inputvariable>light intensity
+description: 1-10, higher will make the narrative run well
+inputvariable>water
+description: 1-10, higher will lead the narrative towards more to water
 ...>....
 
-一共有三个list：
 
-未structured的list
-worldsetting/
-narratorbehavior/
-input variables/
-
-适应page2, branching后的两个list, 有两个
 
 
 ⭐<待解决&可能遇到的问题>
 #! 这里有一个问题是现在的1, 2 是写定的, 要想怎么跟按钮联系起来, 按下按钮之后添加一个input stage/ 或者或多个input stage-- 可能是list同时多个item的问题
+
+##！这里有点问题, 理论上要支持添加多个narrative elements, 但是这里只支持每次给一个阶段的narrative添加一条
+
+---6:32 改到了！！一轮可以顺利，试一试换stage
+
 
 ⭐ <reference log>
 https://python.langchain.com.cn/docs/expression_language/how_to/passthrough
