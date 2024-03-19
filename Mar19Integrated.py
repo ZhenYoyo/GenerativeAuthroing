@@ -40,16 +40,6 @@ prompttemplate_list = []
 formatted_retrieval_list = []
 currentprompt = ""
 
-# narrator_behavior=""
-# input_variables = "{lightintensity} is changing the emotional tone of the story"
-# template = narrator_behavior + "This is the story context you are based from:{context} \ generate narrative based on player's input: {question}. " + input_variables
-
-
-# template = """Answer the question based on the following context:
-# {context}
-# and answers the question from the player: {question}
-# """
-
 #----
 #this should not be changes, is for summarizing the chat history -- page3
 contextualize_q_system_prompt = """Given a chat history and the latest user question \
@@ -149,10 +139,8 @@ while True:
     #simulating narrative stage 1
     if user_input.startswith("start>"):
     #-------
-    #     stage = input(int("narrative stage:"))
     #docs/file/retrieval -- load and embedding knowledge for world setting and character
         vectorstore = DocArrayInMemorySearch.from_texts(
-        # narrative_retrieval_list,
         formatted_retrieval_list[stage],
         embedding=OpenAIEmbeddings(),
         )
@@ -201,18 +189,9 @@ while True:
                 else:
                     return input["question"]
 
-            # setup_and_retrieval = RunnableParallel(
-            # {"context": retriever, "question": RunnablePassthrough()}
-            # )
-                
+
+            #!!!###   
             setup_and_retrieval = RunnableParallel({"context": retriever, "question": RunnablePassthrough()})
-
-
-            # new_item = currentinput
-            # happy = "yes"
-            # setup_and_retrieval.add_item(happy, your_value)
-            # new_item =""
-#!!!###
             setup_and_retrieval.add_item(currentinput, RunnablePassthrough())
 
             rag_chain = (
