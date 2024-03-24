@@ -140,10 +140,18 @@ while True:
     if user_input.startswith("start>"):
     #-------
     #docs/file/retrieval -- load and embedding knowledge for world setting and character
+        # vectorstore = DocArrayInMemorySearch.from_texts(
+        # formatted_retrieval_list[stage],
+        # embedding=OpenAIEmbeddings(),
+        # )
+        # retriever = vectorstore.as_retriever()
+
+        stage = int(input(("start narrative stage:")))
         vectorstore = DocArrayInMemorySearch.from_texts(
-        formatted_retrieval_list[stage],
-        embedding=OpenAIEmbeddings(),
-        )
+                 # narrative_retrieval_list,
+                 formatted_retrieval_list[stage],
+                 embedding=OpenAIEmbeddings(),
+                 )   
         retriever = vectorstore.as_retriever()
     #-- ----
         while True:
