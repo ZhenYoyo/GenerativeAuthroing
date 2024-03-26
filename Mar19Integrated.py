@@ -18,8 +18,8 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 #-----
 #defining api key
-API_SECRET_KEY = "sk-f29A4tQuVfHMbdcgqHrNIF3QRVJmbpnrqucE7V7062r4fz8L"
-BASE_URL = "https://api.f2gpt.com/v1" 
+API_SECRET_KEY = "xxxxx"
+BASE_URL = "xxxx" 
 os.environ["OPENAI_API_KEY"] = API_SECRET_KEY
 os.environ["OPENAI_API_BASE"] = BASE_URL
 #-----
