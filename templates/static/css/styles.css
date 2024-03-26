@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.typing-bar-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.typing-bar-container_world {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.typing-bar {
+  flex-grow: 1;
+}
+.typing-bar_world {
+  flex-grow: 1;
+}
+.enter-button {
+  margin-left: 5px;
+}
+.enter-button_world {
+  margin-left: 5px;
+}
+.output {
+  width: 100%;
+  height: 70%;
+  overflow-y: auto;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.output-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  padding: 20px;
+}
+
+.entry {
+  display: block;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.delete-button {
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.container_variable {
+      display: flex;
+    justify-content: space-between;
+    padding: 10px;
+width: 100%
+    }

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Bars</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  
+  <style>
+    .page {
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+
+    .input-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .typing-bar-container_world,
+    .container_variable,
+    .typing-bar-container {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 5px;
+    }
+
+
+    .numberdisplay {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .output {
+      margin-top: 10px;
+    }
+
+
+    /* body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    } */
+
+
+    .card {
+      width: 200px;
+      height: 100px;
+      background-color: lightblue;
+      margin-bottom: 10px;
+      cursor: move;
+    }
+
+    .draggable-card {
+            width: 100px;
+            height: 100px;
+            background-color: #ebebeb;
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            cursor: move;
+    }
+
+
+    #textContainer {
+      background-color: #FFF0F5;
+
+    }
+
+  </style>
+
+  <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+ 
+
+</head>
+<body>
+  <div id="page-1" class="page active">
+  <div class="container">
+    <div class="input-section">
+      <div class="typing-bar-container_world">
+        <input type="text" class="typing-bar_world" id="typing-bar_world-1" placeholder="World Setting">
+        <button class="enter-button_world" onclick="updateworld(1)">Enter</button>
+      </div>
+      <div class="output" id="output-world-1"></div>
+    </div>
+
+    <div class="input-section">
+      <div class="typing-bar-container_world">
+        <input type="text" class="typing-bar_world" id="typing-bar_world-2" placeholder="Character">
+        <button class="enter-button_world" onclick="updateworld(2)">Enter</button>
+      </div>
+      <div class="output" id="output-world-2"></div>
+    </div>
+
+    <div class="input-section">
+      <div class="typing-bar-container_world">
+        <input type="text" class="typing-bar_world" id="typing-bar_world-5" placeholder="Narrator Behavior">
+        <button class="enter-button_world" onclick="updateworld(5)">Enter</button>
+      </div>
+      <div class="output" id="output-world-5"></div>
+    </div>
+
+    <div class="input-section">
+      <div class="container_variable">
+        <input type="text" class="typing-bar_world" id="typing-bar_world-3" placeholder="Variable">
+        <input type="text" class="typing-bar_world" id="typing-bar_world-4" placeholder="Variable Description">
+        <button class="enter-button_world" onclick="updatevariable(3); updatevariable(4)">Enter</button>
+      </div>
+      <div class="output" id="output-world-3"></div>
+      <div class="output" id="output-world-4"></div>
+    </div>
+
+
+    
+    <!-- <div class="input-section">
+      <div class="typing-bar-container">
+        <input type="text" class="typing-bar" id="typing-bar-1">
+        <button class="enter-button" onclick="updateHistory(1)">Enter</button>
+      </div>
+    </div> -->
+
+
+    <div class="typing-bar-container">
+     <button onclick="showNextPage()">Next</button>
+    </div>
+
+    <div class="numberdisplay">
+    <h3>Wordsetting card No:</h3>
+     <p id="worldcard"></p>
+
+     <h3>Character card No:</h3>
+     <p id="charactercard"></p>
+
+     <h3>Narrator Behavior card No:</h3>
+     <p id="narratorcard"></p>
+
+     <h3>Interactive Input card No:</h3>
+     <p id="inputcard"></p>
+
+
+    </div>
+
+
+
+  </div>
+</div>
+
+<div id="page-2" class="page">
+
+    <!-- <p id="worldcontent"></p>
+    <p id="charactercontent"></p>
+    <p id="narratorcontent"></p>
+    <p id="inputcontent"></p> -->
+
+    <div class="typing-bar-container">
+      <button onclick="showPreviousPage()">Previous</button>
+     </div>
+
+     <div id="textContainer"></div>
+
+     <div id="worldcardContainer"></div>
+     <div id="charactercardContainer"></div>
+     <div id="narratorcardContainer"></div>
+     <div id="inputcardContainer"></div>
+   
+</div>
+
+
+  <div class="output-section" id="output-section"></div>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Typing Bars</title> <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <script src="{{ url_for('static', filename='js/script.js') }}"></script> </head> <body> <div class="container"> <div class="input-section">
+  <div class="typing-bar-container_world">
+    <input type="text" class="typing-bar_world" id="typing-bar_world-1" placeholder="World Setting">
+    <button class="enter-button_world" onclick="updateworld(1)">Enter</button>
+  </div>
+  <div class="output" id="output-world-1"></div>
+  <div class="typing-bar-container_world"> <input type="text" class="typing-bar_world" id="typing-bar_world-2" placeholder="Character"> <button class="enter-button_world" onclick="updateworld(2)">Enter</button> </div> <div class="output" id="output-world-2"></div> <div class="typing-bar-container_world"> <input type="text" class="typing-bar_world" id="typing-bar_world-5" placeholder="Narrator Behavior"> <button class="enter-button_world" onclick="updateworld(5)">Enter</button> </div> <div class="output" id="output-world-5"></div> <div class="container_variable"> <input type="text" class="typing-bar_world" id="typing-bar_world-3" placeholder="Variable"> <input type="text" class="typing-bar_world" id="typing-bar_world-4" placeholder="Variable Description"> <button class="enter-button_world" onclick="updatevariable(3); updatevariable(4)">Enter</button>  </div> <div class="output" id="output-world-3"></div> <div class="output" id="output-world-4"></div> <div class="typing-bar-container"> <input type="text" class="typing-bar" id="typing-bar-1"> <button class="enter-button" onclick="updateHistory(1)">Enter</button> </div> </div> <div class="output-section" id="output-section"></div> </div> </body> </html>  -->
