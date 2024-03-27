@@ -3,12 +3,28 @@
 function showNextPage() {
   document.getElementById('page-1').classList.remove('active');
   document.getElementById('page-2').classList.add('active');
+  document.getElementById('page-3').classList.remove('active');
 }
 
 function showPreviousPage() {
   document.getElementById('page-2').classList.remove('active');
   document.getElementById('page-1').classList.add('active');
+  document.getElementById('page-3').classList.remove('active');
 }
+
+
+function showNextPage2() {
+  document.getElementById('page-1').classList.remove('active');
+  document.getElementById('page-2').classList.remove('active');
+  document.getElementById('page-3').classList.add('active');
+}
+
+function showPreviousPage2() {
+  document.getElementById('page-1').classList.remove('active');
+  document.getElementById('page-3').classList.remove('active');
+  document.getElementById('page-2').classList.add('active');
+}
+
 
 
 $(document).ready(function(){
@@ -89,7 +105,7 @@ function createDraggableCards(cardCount, cardType, color, textlist) {
 
 function updateHistory(barNumber) {
   const typingBar = document.getElementById(`typing-bar-${barNumber}`);
-  const outputSection = document.getElementById("output-section");
+  const outputSection = document.getElementById(`output-section-${barNumber}`);
 const entry = document.createElement("div");
   entry.className = "entry";
 

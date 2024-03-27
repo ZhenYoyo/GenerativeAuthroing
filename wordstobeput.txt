@@ -1,0 +1,46 @@
+World Settings:
+
+1. Enchanted Forest:
+   - Description: A mystical forest shrouded in enchantment, with towering ancient trees, sparkling streams, and glowing flora. Sunlight filters through the dense canopy, casting ethereal hues across the landscape. Magical creatures roam freely, and whispers of forgotten spells fill the air.
+   - Input Variable: "Forest"
+   - Description: A boolean variable indicating whether the world is set in the enchanted forest or not.
+
+2. Futuristic City:
+   - Description: A bustling metropolis of gleaming skyscrapers, advanced technology, and neon lights. Flying cars zip through the skies, holographic advertisements dance on every corner, and automated drones navigate the cityscape. The atmosphere hums with energy and innovation.
+   - Input Variable: "City"
+   - Description: A boolean variable indicating whether the world is set in the futuristic city or not.
+
+3. Ancient Ruins:
+   - Description: Decaying ruins of a long-lost civilization, nestled deep within an overgrown jungle. Crumbling stone structures, intricate carvings, and moss-covered artifacts tell tales of a forgotten era. The air is heavy with mystery and echoes of the past.
+   - Input Variable: "Ruins"
+   - Description: A boolean variable indicating whether the world is set in the ancient ruins or not.
+
+Character Descriptions:
+
+1. Luna:
+   - Description: Luna is a wise and mysterious sorceress with long flowing robes and a staff adorned with glowing crystals. She possesses ancient knowledge and a calm demeanor. Her eyes sparkle with hidden powers, and her words resonate with wisdom and guidance.
+   - Input Variable: "Luna"
+   - Description: A boolean variable indicating whether the character Luna is present or not.
+
+2. Max:
+   - Description: Max is a curious and adventurous young explorer. He wears a weathered hat, a tattered explorer's jacket, and carries a map and compass. With a mischievous grin, he embodies the spirit of a fearless adventurer, always seeking new discoveries and thrills.
+   - Input Variable: "Max"
+   - Description: A boolean variable indicating whether the character Max is present or not.
+
+3. Aurora:
+   - Description: Aurora is a kind-hearted and compassionate fairy with shimmering wings and a radiant aura. She spreads joy and healing with her gentle touch and soothing voice. Her presence brings a sense of tranquility and hope to those around her.
+   - Input Variable: "Aurora"
+   - Description: A boolean variable indicating whether the character Aurora is present or not.
+
+Narrator Behaviors:
+
+1. Descriptive:
+   - Description: The narrator provides vivid descriptions of the surroundings, characters, and events, painting a detailed picture for the audience. They engage the audience's senses by describing sights, sounds, smells, and textures.
+
+2. Engaging:
+   - Description: The narrator uses a dynamic and expressive tone, capturing the audience's attention and creating a sense of excitement. They employ rhetorical questions, exclamations, and varying pacing to keep the audience engaged and interested.
+
+3. Reflective:
+   - Description: The narrator offers introspective and contemplative insights, delving into the characters' thoughts and emotions. They provide commentary on the themes and deeper meanings of the story, encouraging the audience to reflect on the narrative's messages.
+
+Please note that the input variables are boolean variables that can be used to control the presence or absence of specific elements in the story, such as the world setting or characters.

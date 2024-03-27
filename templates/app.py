@@ -28,17 +28,22 @@ model = ChatOpenAI(model="gpt-3.5-turbo", verbose=True)
 
 input_variables_list = []
 input_variables_demonstration = []
-narrative_retrieval_list = []
+worldsetting_list = []
 character_list = []
 narrator_behavior_list = []
 
 variable_dic = {}
 
 #for page2 card creation
-narrative_retrieval_list_no = 0
+worldsetting_list_no = 0
 character_list_no = 0
 narrator_behavior_list_no = 0
 input_variables_list_no = 0
+
+
+
+#***for defining the dictionary output, what we will use in the real narrative-- page2
+narrating_dic = {}
 
 #----
 #this should not be changes, is for summarizing the chat history -- page3
@@ -56,7 +61,8 @@ stage = 0
 
 
 #oringinal
-playerinput=""
+player_input = ""
+external_input = ""
 
 
 
@@ -110,52 +116,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-
-
-
-# @app.route('/branching', methods=['POST', 'GET'])
-# #@app.route('/world', methods=['POST'])
-# #@app.route('/world')
-# def system():
-#     global narrative_retrieval_list
-#     input_data = request.json
-#     if input_data['id'] == 1:
-#         branching i = //这里应该是卡片对应的~
-#         narrative_retrieval_list.append(input_data['text'])
-#         print(narrative_retrieval_list)  # Printing the result on the server console
-    
-#     return jsonify({'output': ''})
-
-
-
-@app.route('/process')
-#@app.route('/process', methods=['POST'])
-def process():
-    global narrative_retrieval_list
-    global character_list
-    global input_variables_list 
-    global input_variables_demonstration
-    global variable_dic
-    input_data = request.json
-    narrator.messages = [{"role": "assistant", "content": narrator.assistant_msg},
-                         {"role": "user", "content": input_data['text']},
-                        {"role": "system", "content": ' '.join(narrative_retrieval_list)+' '.join(character_list) }]
-    print(' '.join(narrative_retrieval_list)+" " + ' '.join(character_list))
-    narrator_response = narrator.get_completion()
-    # Process the input data and generate output
-    output_data = 'narrator: ' + narrator_response
-    print(output_data)  # Printing the result on the server console
-    # Send the result to the client-side JavaScript as a JSON response
-    return jsonify({'output': output_data})
-
-
-
-
-
-
+#---for page1
 @app.route('/world', methods=['POST', 'GET'])
 def system():
-    global narrative_retrieval_list
+    global worldsetting_list
     global character_list
     global input_variables_list 
     global input_variables_demonstration
@@ -166,8 +130,8 @@ def system():
 
     input_data = request.json
     if input_data['id'] == 1:
-        narrative_retrieval_list.append(input_data['text'])
-        print(narrative_retrieval_list)  # Printing the result on the server console
+        worldsetting_list.append(input_data['text'])
+        print(worldsetting_list)  # Printing the result on the server console
         
     elif input_data['id'] == 2:
         character_list.append(input_data['text'])
@@ -180,6 +144,7 @@ def system():
 
     #create a dictionary to store the variable and description
     elif input_data['id'] == 3:
+       #modified
        input_variables_list.append(input_data['text'])
        print(input_variables_list )  
        newkey= input_data['text']
@@ -200,7 +165,7 @@ def system():
 
 @app.route('/removeworld', methods=['POST'])
 def removesystem():
-    global narrative_retrieval_list
+    global worldsetting_list
     global character_list
     global input_variables_list 
     global input_variables_demonstration
@@ -209,13 +174,13 @@ def removesystem():
 
     data = request.json
     # if data['id'] == 1:
-    #     narrative_retrieval_list.remove(data['value'])
-    #     print(narrative_retrieval_list)  # Printing the result on the server console
+    #     worldsetting_list.remove(data['value'])
+    #     print(worldsetting_list)  # Printing the result on the server console
 
     if data['id'] == 1:
-     if data['value'] in narrative_retrieval_list:
-        narrative_retrieval_list.remove(data['value'])
-        print(narrative_retrieval_list)
+     if data['value'] in worldsetting_list:
+        worldsetting_list.remove(data['value'])
+        print(worldsetting_list)
      else:
         print(f"{data['value']} no existi")
         
@@ -236,16 +201,13 @@ def removesystem():
     return jsonify({'output': ''})
 
 
-
-
-
 @app.route('/worldcard')
 def get_data1():
-    global narrative_retrieval_list
-    global narrative_retrieval_list_no
-    narrative_retrieval_list_no = len(narrative_retrieval_list)
-    print("wordcardno", narrative_retrieval_list_no)
-    data = {'value': narrative_retrieval_list_no, 'worldlist': narrative_retrieval_list}
+    global worldsetting_list
+    global worldsetting_list_no
+    worldsetting_list_no = len(worldsetting_list)
+    print("wordcardno", worldsetting_list_no)
+    data = {'value': worldsetting_list_no, 'worldlist': worldsetting_list}
     return jsonify(data)
 
 
@@ -280,15 +242,128 @@ def get_data4():
 
 
 
+#---for page2
+
+@app.route('/branching', methods=['POST', 'GET'])
+# TO DO @Warren: This route should be used to update the narrating_dic dictionary
+#here is for building a dictionary to store the systemprompt and the retrievel list
+# @app.route('/branching', methods=['POST', 'GET'])
+#global narrating_dic
+#narrating_dic["initial narrative stage"]={"systemprompt": narrator_behavior_list[0] + input_variables_list[0]+input_variables_demonstration[0], "retrieval": worldsetting_list[0]+character_list[0]}
+#key是根据html里接受的string来设置的, SYSTEMPROMPT是当前输入的behavior和inputvariable的拼贴, RETRIEVAL是当前输入的worldsetting和character的拼贴
+
+
+
+# Ideally, the outcome of this route is updating narrating_dic = {}
+
+
+
+#---for page3
+
+@app.route('/process')
+#@app.route('/process', methods=['POST'])
+def process():
+     global narrating_dic 
+     global player_input
+     global external_input
+
+     input_data = request.json
+
+     if input_data['id'] == 1:
+        player_input = input_data['text']
+        print("playerinput", player_input)  # Printing the result on the server console
+        
+     elif input_data['id'] == 2:
+        external_input = input_data['text']
+        print("externalinput", player_input)  # Printing the result on the server console
+
+
+
+
+     prompt_must_have = "This is the story context you are based from:{context} \ generate narrative based on player's input: {question}. " 
+     # for demo, the real one will be updated in real time
+
+     # need to solve how to automatically add "{}" for input variable
+     narrating_dic = {"initial narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[0] + "{"+input_variables_list[0]+"}"+input_variables_demonstration[0], 
+                                           "retrieval": worldsetting_list[0]+character_list[0]},
+
+                       "second narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[1] + "{"+ input_variables_list[1]+"}"+input_variables_demonstration[1],
+                                           "retrieval": worldsetting_list[1]+character_list[1]},
+
+                       "third narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[2] + "{"+ input_variables_list[2]+ "}"+input_variables_demonstration[2],
+                                           "retrieval": worldsetting_list[2]+character_list[2]}
+                     }
+     
+#start
+     vectorstore = DocArrayInMemorySearch.from_texts(
+                 # narrative_retrieval_list,
+                 narrating_dic["initial narrative stage"]["retrieval"],
+                 embedding=OpenAIEmbeddings(),
+                 )   
+     
+     retriever = vectorstore.as_retriever()
+     
+     
+     contextualize_q_prompt = ChatPromptTemplate.from_messages(
+                [
+                ("system", contextualize_q_system_prompt),
+                MessagesPlaceholder(variable_name="chat_history"),
+                ("human", "{question}"),
+                ]
+            )
+     contextualize_q_chain = contextualize_q_prompt | model | StrOutputParser()
+
+     prompt = ChatPromptTemplate.from_messages(
+                [
+                ("system", narrating_dic["initial narrative stage"]["systemprompt"]),
+                MessagesPlaceholder(variable_name="chat_history"),
+                ("human", "{question}"),
+                ]
+            )
+
+
+     def contextualized_question(input: dict):
+                if input.get("chat_history"):
+                    return contextualize_q_chain
+                else:
+                    return input["question"]
+                
+     setup_and_retrieval = RunnableParallel({"context": retriever, "question": RunnablePassthrough()})
+     setup_and_retrieval.add_item(input_variables_list[0], RunnablePassthrough())
+
+     rag_chain = (
+                RunnablePassthrough.assign(
+                context=contextualized_question | retriever 
+            )
+                | prompt
+                | model
+            )
+     
+
+     invoke_dict = {"question": player_input, "chat_history": chat_history}
+     invoke_dict[input_variables_list[0]] =  external_input # 添加新的键值对
+            
+            #ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
+     ai_msg = rag_chain.invoke(invoke_dict)
+     chat_history.extend([HumanMessage(content=player_input), AIMessage(content=ai_msg.content)])
+     print("narrative:", ai_msg.content)
+            #print if check the chat history
+            #print("chat history:", chat_history)
+
+
+
+
+
+
 
 @app.route('/reset', methods=['POST'])
 def reset():
-    global narrative_retrieval_list
+    global worldsetting_list
     global character_list
     global input_variables_list 
     global input_variables_demonstration
     global narrator_behavior_list
-    narrative_retrieval_list = []
+    worldsetting_list = []
     character_list = []
     input_variables_list = []
     input_variables_demonstration = []
