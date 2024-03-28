@@ -27,86 +27,84 @@ function showPreviousPage2() {
 
 
 
-$(document).ready(function(){
-  setInterval(function(){
+// $(document).ready(function(){
+//   setInterval(function(){
 
-     $.ajax({
-      url: '/worldcard',
-      type: 'GET',
-      dataType: 'json',
-      success: function(data){
-          $('#worldcard').text(data.value);
-          // $('#worldcontent').text(data.worldlist);
-          createDraggableCards(data.value, 'worldcard', '#FF69B4', data.worldlist); 
-      }
-     });
+//      $.ajax({
+//       url: '/worldcard',
+//       type: 'GET',
+//       dataType: 'json',
+//       success: function(data){
+//           $('#worldcard').text(data.value);
+//           // $('#worldcontent').text(data.worldlist);
+//           createDraggableCards(data.value, 'worldcard', '#FF69B4', data.worldlist); 
+//       }
+//      });
   
 
-      $.ajax({
-          url: '/charactercard',
-          type: 'GET',
-          dataType: 'json',
-          success: function(data){
-              $('#charactercard').text(data.value);
-              // $('#charactercontent').text(data.characterlist);
-              createDraggableCards(data.value, 'charactercard', '#3CB371', data.characterlist); 
-          }
-      });
+//       $.ajax({
+//           url: '/charactercard',
+//           type: 'GET',
+//           dataType: 'json',
+//           success: function(data){
+//               $('#charactercard').text(data.value);
+//               // $('#charactercontent').text(data.characterlist);
+//               createDraggableCards(data.value, 'charactercard', '#3CB371', data.characterlist); 
+//           }
+//       });
 
-      $.ajax({
-          url: '/narratorcard',
-          type: 'GET',
-          dataType: 'json',
-          success: function(data){
-              $('#narratorcard').text(data.value);
-              // $('#narratorcontent').text(data.narratorlist);
-              createDraggableCards(data.value, 'narratorcard', '#FFB6C1', data.narratorlist); 
-          }
-      });
+//       $.ajax({
+//           url: '/narratorcard',
+//           type: 'GET',
+//           dataType: 'json',
+//           success: function(data){
+//               $('#narratorcard').text(data.value);
+//               // $('#narratorcontent').text(data.narratorlist);
+//               createDraggableCards(data.value, 'narratorcard', '#FFB6C1', data.narratorlist); 
+//           }
+//       });
 
-      $.ajax({
-          url: '/inputcard',
-          type: 'GET',
-          dataType: 'json',
-          success: function(data){
-              $('#inputcard').text(data.value);
-              // $('#inputcontent').text(data.inputlist);
-              createDraggableCards(data.value, 'inputcard', '#FFA500', data.inputlist); 
-          }
-      });
+//       $.ajax({
+//           url: '/inputcard',
+//           type: 'GET',
+//           dataType: 'json',
+//           success: function(data){
+//               $('#inputcard').text(data.value);
+//               // $('#inputcontent').text(data.inputlist);
+//               createDraggableCards(data.value, 'inputcard', '#FFA500', data.inputlist); 
+//           }
+//       });
 
-  }, 1000);  
-});
+//   }, 1000);  
+// });
 
 
 function createDraggableCards(cardCount, cardType, color, textlist) {
   var cardContainer = $('#' + cardType + 'Container');
   var textContainer = $('#textContainer');
-  cardContainer.empty(); // 清空容器中的内容
+  cardContainer.empty(); 
 
   for (var i = 1; i <= cardCount; i++) {
       var card = $('<div class="draggable-card">' + cardType + ' Card ' + i + '</div>');
-      card.css('background-color', color); // 设置背景颜色
-      card.draggable(); // 添加可拖动功能
-      card.data('index', i-1); // 将索引存储在卡片的数据中
+      card.css('background-color', color); 
+      card.draggable(); 
+      card.data('index', i-1); 
 
       card.click(function() {
-        var index = $(this).data('index'); // 获取卡片的索引
-        var cardText = textlist[index]; // 根据索引获取对应的文本
-        textContainer.text("details:"+ cardText); // 在textContainer中显示文本
+        var index = $(this).data('index'); 
+        var cardText = textlist[index]; 
+        textContainer.text("details:"+ cardText); 
       });
 
-      cardContainer.append(card); // 将卡片添加到容器中
-
+      cardContainer.append(card); 
   }
 }
-
 
 
 function updateHistory(barNumber) {
   const typingBar = document.getElementById(`typing-bar-${barNumber}`);
   const outputSection = document.getElementById(`output-section-${barNumber}`);
-const entry = document.createElement("div");
+  const entry = document.createElement("div");
   entry.className = "entry";
 
   const deleteButton = document.createElement("button");
@@ -125,7 +123,8 @@ const entry = document.createElement("div");
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ text: typingBar.value })
+    //body: JSON.stringify({ text: typingBar.value })
+    body: JSON.stringify({ text: typingBar.value , id:barNumber})
   })
     .then(response => response.json())
     .then(data => {
@@ -134,6 +133,30 @@ entryText.innerHTML = data.output;
   outputSection.appendChild(entry);
   typingBar.value = "";
 }
+
+
+
+
+function sendGenerateData() {
+  // 发送POST请求到服务器端的/process路由
+  fetch('/process', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text:"generate", id:5})
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log(':', data);
+  })
+  .catch(error => {
+      console.error('error', error);
+  });
+}
+
+
+
 
 
 function updateworld(barNumber) {
