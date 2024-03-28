@@ -65,6 +65,25 @@ player_input = ""
 external_input = ""
 
 
+# narrative_dic for testing
+# setting1= "Enchanted Forest: A mystical forest shrouded in enchantment, with towering ancient trees, sparkling streams, and glowing flora. Sunlight filters through the dense canopy, casting ethereal hues across the landscape. Magical creatures roam freely, and whispers of forgotten spells fill the air."
+# setting2= "A bustling metropolis of gleaming skyscrapers, advanced technology, and neon lights. Flying cars zip through the skies, holographic advertisements dance on every corner, and automated drones navigate the cityscape. The atmosphere hums with energy and innovation."
+# setting3= "Decaying ruins of a long-lost civilization, nestled deep within an overgrown jungle. Crumbling stone structures, intricate carvings, and moss-covered artifacts tell tales of a forgotten era. The air is heavy with mystery and echoes of the past."
+# behavior1= "Descriptive: The narrator provides vivid descriptions of the surroundings, characters, and events, painting a detailed picture for the audience. They engage the audience's senses by describing sights, sounds, smells, and textures."
+# behavior2= "Engaging: The narrator uses a dynamic and expressive tone, capturing the audience's attention and creating a sense of excitement. They employ rhetorical questions, exclamations, and varying pacing to keep the audience engaged and interested."
+# behavior3= "Reflective: The narrator offers introspective and contemplative insights, delving into the characters' thoughts and emotions. They provide commentary on the themes and deeper meanings of the story, encouraging the audience to reflect on the narrative's messages."
+
+#      narrating_dic = {"initial narrative stage": {"systemprompt": behavior1, 
+#                                            "retrieval": setting1},
+
+#                        "second narrative stage": {"systemprompt": behavior2,
+#                                            "retrieval": setting2},
+
+#                        "third narrative stage": {"systemprompt": behavior3
+# ,
+#                                            "retrieval": setting3}
+#                     }
+        
 
 class RunnableParallel:
     def __init__(self, items):
@@ -258,10 +277,10 @@ def get_data4():
 
 
 
+
 #---for page3
 
-# @app.route('/process')
-@app.route('/process', methods=['POST'])
+@app.route('/process', methods=['POST', 'GET'])
 def process():
      
      global narrating_dic 
@@ -273,118 +292,97 @@ def process():
 
      if input_data['id'] == 1:
         player_input = input_data['text']
-        print("playerinput", player_input)  # Printing the result on the server console
-        start = ""
-        
+        print("playerinput", player_input)  
+        start = ""       
      elif input_data['id'] == 2:
         external_input = input_data['text']
-        print("externalinput", external_input)  # Printing the result on the server console
+        print("externalinput", external_input)  
         start = ""
      elif input_data['id'] == 5:
         start = input_data['text']
-        print("start", start)  # Printing the result on the server console
-
+        print("start", start)  
      else:
         start = ""
 
-    #  print(player_input)
-
-     return jsonify({'output': ''})
-
-
-    #  prompt_must_have = "This is the story context you are based from:{context} \ generate narrative based on player's input: {question}. " 
-     # for demo, the real one will be updated in real time
-
-     # need to solve how to automatically add "{}" for input variable
-
-    #  narrating_dic = {"initial narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[0] + "{"+input_variables_list[0]+"}"+input_variables_demonstration[0], 
-    #                                        "retrieval": worldsetting_list[0]+character_list[0]},
-
-    #                    "second narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[1] + "{"+ input_variables_list[1]+"}"+input_variables_demonstration[1],
-    #                                        "retrieval": worldsetting_list[1]+character_list[1]},
-
-    #                    "third narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[2] + "{"+ input_variables_list[2]+ "}"+input_variables_demonstration[2],
-    #                                        "retrieval": worldsetting_list[2]+character_list[2]}
-    #                  }
-    
-
-
-#      setting1= "Enchanted Forest: A mystical forest shrouded in enchantment, with towering ancient trees, sparkling streams, and glowing flora. Sunlight filters through the dense canopy, casting ethereal hues across the landscape. Magical creatures roam freely, and whispers of forgotten spells fill the air."
-#      setting2= "A bustling metropolis of gleaming skyscrapers, advanced technology, and neon lights. Flying cars zip through the skies, holographic advertisements dance on every corner, and automated drones navigate the cityscape. The atmosphere hums with energy and innovation."
-#      setting3= "Decaying ruins of a long-lost civilization, nestled deep within an overgrown jungle. Crumbling stone structures, intricate carvings, and moss-covered artifacts tell tales of a forgotten era. The air is heavy with mystery and echoes of the past."
-#      behavior1= "Descriptive: The narrator provides vivid descriptions of the surroundings, characters, and events, painting a detailed picture for the audience. They engage the audience's senses by describing sights, sounds, smells, and textures."
-#      behavior2= "Engaging: The narrator uses a dynamic and expressive tone, capturing the audience's attention and creating a sense of excitement. They employ rhetorical questions, exclamations, and varying pacing to keep the audience engaged and interested."
-#      behavior3= "Reflective: The narrator offers introspective and contemplative insights, delving into the characters' thoughts and emotions. They provide commentary on the themes and deeper meanings of the story, encouraging the audience to reflect on the narrative's messages."
-
-#      narrating_dic = {"initial narrative stage": {"systemprompt": behavior1, 
-#                                            "retrieval": setting1},
-
-#                        "second narrative stage": {"systemprompt": behavior2,
-#                                            "retrieval": setting2},
-
-#                        "third narrative stage": {"systemprompt": behavior3
-# ,
-#                                            "retrieval": setting3}
-#                     }
+     prompt_must_have = "This is the story context you are based from:{context} \ generate narrative based on player's input: {question}. " 
      
+     #for demo, the real one will be updated in real time
+     #need to solve how to automatically add "{}" for input variable
+     narrating_dic = {"initial narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[0] + "{"+input_variables_list[0]+"}"+input_variables_demonstration[0], 
+                                           "retrieval": worldsetting_list[0]+character_list[0]},
 
+                       "second narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[1] + "{"+ input_variables_list[1]+"}"+input_variables_demonstration[1],
+                                           "retrieval": worldsetting_list[1]+character_list[1]},
+
+                       "third narrative stage": {"systemprompt": prompt_must_have + narrator_behavior_list[2] + "{"+ input_variables_list[2]+ "}"+input_variables_demonstration[2],
+                                           "retrieval": worldsetting_list[2]+character_list[2]}
+                     }
+        
      
-# #start
-#      if start == "generate":   
-#         vectorstore = DocArrayInMemorySearch.from_texts(
-#                     # narrative_retrieval_list,
-#                     narrating_dic["initial narrative stage"]["retrieval"],
-#                     embedding=OpenAIEmbeddings(),
-#                     )   
-        
-#         retriever = vectorstore.as_retriever()
-        
-        
-#         contextualize_q_prompt = ChatPromptTemplate.from_messages(
-#                     [
-#                     ("system", contextualize_q_system_prompt),
-#                     MessagesPlaceholder(variable_name="chat_history"),
-#                     ("human", "{question}"),
-#                     ]
-#                 )
-#         contextualize_q_chain = contextualize_q_prompt | model | StrOutputParser()
+#start
+     if start == "generate":   
 
-#         prompt = ChatPromptTemplate.from_messages(
-#                     [
-#                     ("system", narrating_dic["initial narrative stage"]["systemprompt"]),
-#                     MessagesPlaceholder(variable_name="chat_history"),
-#                     ("human", "{question}"),
-#                     ]
-#                 )
+        print(narrating_dic["initial narrative stage"]["systemprompt"])
+        print(narrating_dic["initial narrative stage"]["retrieval"])
+
+        vectorstore = DocArrayInMemorySearch.from_texts(
+                    narrating_dic["initial narrative stage"]["retrieval"],
+                    embedding=OpenAIEmbeddings(),
+                    )   
+        
+        retriever = vectorstore.as_retriever()
+        
+        
+        contextualize_q_prompt = ChatPromptTemplate.from_messages(
+                    [
+                    ("system", contextualize_q_system_prompt),
+                    MessagesPlaceholder(variable_name="chat_history"),
+                    ("human", "{question}"),
+                    ]
+                )
+        contextualize_q_chain = contextualize_q_prompt | model | StrOutputParser()
+
+        prompt = ChatPromptTemplate.from_messages(
+                    [
+                    ("system", narrating_dic["initial narrative stage"]["systemprompt"]),
+                    MessagesPlaceholder(variable_name="chat_history"),
+                    ("human", "{question}"),
+                    ]
+                )
 
 
-#         def contextualized_question(input: dict):
-#                     if input.get("chat_history"):
-#                         return contextualize_q_chain
-#                     else:
-#                         return input["question"]
+        def contextualized_question(input: dict):
+                    if input.get("chat_history"):
+                        return contextualize_q_chain
+                    else:
+                        return input["question"]
                     
-#         setup_and_retrieval = RunnableParallel({"context": retriever, "question": RunnablePassthrough()})
-#         setup_and_retrieval.add_item(input_variables_list[0], RunnablePassthrough())
+        setup_and_retrieval = RunnableParallel({"context": retriever, "question": RunnablePassthrough()})
+        setup_and_retrieval.add_item(input_variables_list[0], RunnablePassthrough())
 
-#         rag_chain = (
-#                     RunnablePassthrough.assign(
-#                     context=contextualized_question | retriever 
-#                 )
-#                     | prompt
-#                     | model
-#                 )
+        rag_chain = (
+                    RunnablePassthrough.assign(
+                    context=contextualized_question | retriever 
+                )
+                    | prompt
+                    | model
+                )
         
 
-#         invoke_dict = {"question": player_input, "chat_history": chat_history}
-#         #invoke_dict[input_variables_list[0]] =  external_input # 添加新的键值对
+        invoke_dict = {"question": player_input, "chat_history": chat_history}
+        invoke_dict[input_variables_list[0]] =  external_input 
                 
            
-#         ai_msg = rag_chain.invoke(invoke_dict)
-#         chat_history.extend([HumanMessage(content=player_input), AIMessage(content=ai_msg.content)])
-#         print("narrative:", ai_msg.content)
-#                 #print if check the chat history
-#                 #print("chat history:", chat_history)
+        ai_msg = rag_chain.invoke(invoke_dict)
+        chat_history.extend([HumanMessage(content=player_input), AIMessage(content=ai_msg.content)])
+        print("narrative:", ai_msg.content)
+                #print if check the chat history
+                #print("chat history:", chat_history)
+    #  response = jsonify({'output': ''})
+    #  return response
+        
+        data = {'playerinput': player_input, 'aioutput': ai_msg.content}
+        return jsonify(data)
         
 
 

@@ -172,7 +172,7 @@
 
 
      <div class="typing-bar-container">
-      <button onclick="showNextPage2()">Previous</button>
+      <button onclick="showNextPage2()">Next</button>
      </div>
 
      <div id="textContainer"></div>
@@ -184,7 +184,12 @@
    
 </div>
 
+
 <div id="page-3" class="page">
+  <div class="typing-bar-container">
+    <button onclick="showPreviousPage2()">Previous</button>
+  </div>
+
   <div class="container">
 
     <div class="input-section">
@@ -202,32 +207,26 @@
       </div>
       <div class="output" id="output-section-2"></div>
 
-
-      <div class="typing-bar-container">
-        <button onclick="showPreviousPage2()">Previous</button>
-      </div>
-
      <div class="typing-bar-container">
         <button onclick="sendGenerateData()">Generate</button>
       </div>
 
-    </div>
-
-
-
-
-    
-    <!-- <div class="input-section">
-      <div class="typing-bar-container">
-        <input type="text" class="typing-bar" id="typing-bar-1">
-        <button class="enter-button" onclick="updateHistory(1)">Enter</button>
+      <div class="container">
+      <div>
+        <h3>Player Input:</h3>
+        <ul id="playerInputList"></ul>
       </div>
-    </div> -->
-
+      </div>
+      
+      <div class="container">
+      <div>
+        <h3>AI Output:</h3>
+        <ul id="aiOutputList"></ul>
+      </div>
     </div>
 
-
-
+    </div>
+    </div>
   </div>
 </div>
 

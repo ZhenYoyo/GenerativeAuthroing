@@ -27,56 +27,56 @@ function showPreviousPage2() {
 
 
 
-// $(document).ready(function(){
-//   setInterval(function(){
+$(document).ready(function(){
+  setInterval(function(){
 
-//      $.ajax({
-//       url: '/worldcard',
-//       type: 'GET',
-//       dataType: 'json',
-//       success: function(data){
-//           $('#worldcard').text(data.value);
-//           // $('#worldcontent').text(data.worldlist);
-//           createDraggableCards(data.value, 'worldcard', '#FF69B4', data.worldlist); 
-//       }
-//      });
+     $.ajax({
+      url: '/worldcard',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data){
+          $('#worldcard').text(data.value);
+          // $('#worldcontent').text(data.worldlist);
+          createDraggableCards(data.value, 'worldcard', '#FF69B4', data.worldlist); 
+      }
+     });
   
 
-//       $.ajax({
-//           url: '/charactercard',
-//           type: 'GET',
-//           dataType: 'json',
-//           success: function(data){
-//               $('#charactercard').text(data.value);
-//               // $('#charactercontent').text(data.characterlist);
-//               createDraggableCards(data.value, 'charactercard', '#3CB371', data.characterlist); 
-//           }
-//       });
+      $.ajax({
+          url: '/charactercard',
+          type: 'GET',
+          dataType: 'json',
+          success: function(data){
+              $('#charactercard').text(data.value);
+              // $('#charactercontent').text(data.characterlist);
+              createDraggableCards(data.value, 'charactercard', '#3CB371', data.characterlist); 
+          }
+      });
 
-//       $.ajax({
-//           url: '/narratorcard',
-//           type: 'GET',
-//           dataType: 'json',
-//           success: function(data){
-//               $('#narratorcard').text(data.value);
-//               // $('#narratorcontent').text(data.narratorlist);
-//               createDraggableCards(data.value, 'narratorcard', '#FFB6C1', data.narratorlist); 
-//           }
-//       });
+      $.ajax({
+          url: '/narratorcard',
+          type: 'GET',
+          dataType: 'json',
+          success: function(data){
+              $('#narratorcard').text(data.value);
+              // $('#narratorcontent').text(data.narratorlist);
+              createDraggableCards(data.value, 'narratorcard', '#FFB6C1', data.narratorlist); 
+          }
+      });
 
-//       $.ajax({
-//           url: '/inputcard',
-//           type: 'GET',
-//           dataType: 'json',
-//           success: function(data){
-//               $('#inputcard').text(data.value);
-//               // $('#inputcontent').text(data.inputlist);
-//               createDraggableCards(data.value, 'inputcard', '#FFA500', data.inputlist); 
-//           }
-//       });
+      $.ajax({
+          url: '/inputcard',
+          type: 'GET',
+          dataType: 'json',
+          success: function(data){
+              $('#inputcard').text(data.value);
+              // $('#inputcontent').text(data.inputlist);
+              createDraggableCards(data.value, 'inputcard', '#FFA500', data.inputlist); 
+          }
+      });
 
-//   }, 1000);  
-// });
+  }, 1000);  
+});
 
 
 function createDraggableCards(cardCount, cardType, color, textlist) {
