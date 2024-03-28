@@ -386,12 +386,6 @@ def process():
         
 
 
-
-
-
-
-
-
 @app.route('/reset', methods=['POST'])
 def reset():
     global worldsetting_list

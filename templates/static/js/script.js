@@ -69,14 +69,48 @@ $(document).ready(function(){
           type: 'GET',
           dataType: 'json',
           success: function(data){
-              $('#inputcard').text(data.value);
               // $('#inputcontent').text(data.inputlist);
               createDraggableCards(data.value, 'inputcard', '#FFA500', data.inputlist); 
           }
       });
 
+
+
+      $.ajax({
+        url: '/process',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data){
+            updateNarrative(data.playerinput, data.aioutput); 
+        }
+    });
+
+
   }, 1000);  
 });
+
+var previousInput = '';
+var previousOutput = '';
+
+function updateNarrative(input, output){
+
+  var playerInputList = $('#playerInputList');
+  var aiOutputList = $('#aiOutputList');
+
+
+  if (previousInput !== input) {
+    var newInputListItem = $('<li></li>').text('Player Input: ' + input);
+    playerInputList.append(newInputListItem);
+    previousInput = input;
+}
+
+if (previousOutput !== output) {
+    var newOutputListItem = $('<li></li>').text('AI Output: ' + output);
+    aiOutputList.append(newOutputListItem);
+    previousOutput = output;
+}
+
+}
 
 
 function createDraggableCards(cardCount, cardType, color, textlist) {
