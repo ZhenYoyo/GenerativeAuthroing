@@ -63,6 +63,7 @@ stage = 0
 #oringinal
 player_input = ""
 external_input = ""
+ai_output = ""
 
 
 # narrative_dic for testing
@@ -263,7 +264,7 @@ def get_data4():
 
 #---for page2
 
-@app.route('/branching', methods=['POST', 'GET'])
+# @app.route('/branching', methods=['POST', 'GET'])
 # TO DO @Warren: This route should be used to update the narrating_dic dictionary
 #here is for building a dictionary to store the systemprompt and the retrievel list
 # @app.route('/branching', methods=['POST', 'GET'])
@@ -287,6 +288,7 @@ def process():
      global player_input
      global external_input
      global start
+     global ai_output
 
      input_data = request.json
 
@@ -376,13 +378,23 @@ def process():
         ai_msg = rag_chain.invoke(invoke_dict)
         chat_history.extend([HumanMessage(content=player_input), AIMessage(content=ai_msg.content)])
         print("narrative:", ai_msg.content)
+        ai_output = ai_msg.content
                 #print if check the chat history
                 #print("chat history:", chat_history)
     #  response = jsonify({'output': ''})
     #  return response
         
-        data = {'playerinput': player_input, 'aioutput': ai_msg.content}
-        return jsonify(data)
+    #  datasend = {'playerinput': player_input, 'aioutput': ai_output}
+     datasend = {'aioutput': ai_output}
+     return jsonify(datasend)
+
+
+
+@app.route('/updatenarrative')
+def get_data5():
+    global ai_output
+    data = {'value': ai_output}
+    return jsonify(data)
         
 
 
